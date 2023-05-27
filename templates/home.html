@@ -9,13 +9,28 @@
 </head>
 
 <body>
-	My age is {{age}}
 
-	<form action="">
-		X : <input type="text" name="x" value="{{x}}"><br>
-		Y : <input type="text" name="y" value="{{y}}"><br>
-		<button>ADD</button>
-		{{result}}
+	<h2>Book Adding Form</h2>
+	<form>
+		<table>
+			<tr>
+				<td><label for="title">Title:</label></td>
+				<td><input type="text" id="title" name="title" required></td>
+			</tr>
+			<tr>
+				<td><label for="year">Year:</label></td>
+				<td><input type="number" id="year" name="year" min="1900" max="2099" required></td>
+			</tr>
+			<tr>
+				<td><label for="price">Price:</label></td>
+				<td><input type="number" id="price" name="price" required></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+					<input type="submit" value="Add">
+				</td>
+			</tr>
+		</table>
 	</form>
 
 

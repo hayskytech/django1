@@ -1,19 +1,28 @@
 from django.shortcuts import render
 
 from django.http import HttpResponse
+import sqlite3
 
 def home(request):
-	x = request.GET.get('x','0'),
-	y = request.GET.get('y','0'),
-	z = int(x[0]) + int(y[0])
+	con = sqlite3.connect("db.sqlite3")
+	cur = con.cursor()
+	res = cur.execute("SELECT name FROM sqlite_master")
+	tables = res.fetchall()
+	if ('book',) not in tables:
+		cur.execute("CREATE TABLE book(title, year, price)")
 	
-	data = {
-		"age":20,
-		"result" : z,
-		"x" : x[0],
-		"y" : y[0],
-	}
-	return render(request,"home.html",data)
+	title = request.GET.get('title')
+	year = request.GET.get('year')
+	price = request.GET.get('price')
+
+	data = [
+		( title , year, price ),
+	]
+	cur.executemany("INSERT INTO book VALUES(?, ?, ?)", data)
+	
+	con.commit()
+	
+	return render(request,"home.html")
 
 def about(request):
 	# return HttpResponse("<h1>About us<h1>")
